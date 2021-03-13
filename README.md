@@ -21,7 +21,7 @@ Lambda and Stream best practices extracted from the Modern Java in Action - Lamb
 | `collect`      | Terminal | `Stream<T>` | Returns a collection from a stream (such as `Map`, `List` or event `Integer`). |
 
 ### Get the name of all dishes with calories greater than 300
-#### Don't do this:
+#### Stop doing this:
 ```java
 List<String> highCaloricDishes = new ArrayList<>();
 Iterator<String> iterator = menu.iterator();
@@ -43,7 +43,7 @@ List<String> highCaloricDish =
 ```
 ---
 ### Print all the dishes in the collection
-#### Don't do this:
+#### Stop doing this:
 ```java
 Iterator<String> iterator = menu.iterator();
 while (iterator.hasNext()) {
@@ -58,7 +58,7 @@ menu.forEach(System.out::println);
 ```
 ---
 ### Count the number of distinct dishes (at most 3)
-#### Don't do this:
+#### Stop doing this:
 ```java
 Set<Dish> dishes = new HashSet<>();
 int count = 0;
@@ -81,7 +81,7 @@ long count = menu.stream()
 ```
 ---
 ### Get vegetarian dishes from all available dishes
-#### Don't do this:
+#### Stop doing this:
 ```java
 List<Dish> vegetarianDishes = new ArrayList<>();
 for(Dish d: menu) {
@@ -100,7 +100,7 @@ List<Dish> vegetarianDishes =
 ```
 ---
 ### Get all the dishes with the calories lower than 320 (presume the collection is already sorted)
-#### Don't do this:
+#### Stop doing this:
 ```java
 List<Dish> dishesWithLowerThan320Calories = new ArrayList<>();
 for(Dish dish : menu) {
@@ -134,7 +134,7 @@ List<Dish> slicedMenu
 ```
 ---
 ### Get a list of the first 3 dishes having calories greater than 300
-#### Don't do this:
+#### Stop doing this:
 ```java
 List<Dish> dishes = new ArrayList<>();
 int count = 0;
@@ -157,7 +157,7 @@ List<Dish> dishes = specialMenu
 ```
 ---
 ### Filter dishes have calories greater than 300, skip 3 first ones and return the rest
-#### Don't do this:
+#### Stop doing this:
 ```java
 List<Dish> dishes = new ArrayList<>();
 int skipCount = 0;
@@ -178,3 +178,25 @@ List<Dish> dishes = menu.stream()
                         .collect(Collectors.toList());
 ```
 ---
+### Get the first 2 meal dishes
+#### Stop doing this:
+```java
+List<Dish> dishes = new ArrayList<>();
+int count = 0;
+for(Dish dish : menu) {
+  if (dish.getType() == Dish.Type.MEAT) {
+    dishes.add(dish);
+    count++;
+  }
+  if (count == 2) {
+    break;
+  }
+}
+```
+#### Do this:
+```java
+List<Dish> dishes = menu.stream()
+                        .filter(dish -> dish.getType() == Dish.Type.MEAT)
+                        .limit(2)
+                        .collect(Collectors.toList());
+```                        
