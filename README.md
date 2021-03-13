@@ -116,3 +116,19 @@ List<Dish> slicedMenu
  	.takeWhile(dish -> dish.getCalories() < 320)
  	.collect(toList());
 ```
+### Get all the dishes with the calories greater than or equal to 320 (presume the collection is already sorted)
+```java
+List<Dish> dishesWithLowerThan320Calories = new ArrayList<>();
+for(Dish dish : menu) {
+   if (dish.getCalories() >= 320) {
+       dishesWithLowerThan320Calories.add(dish);
+   }	
+}
+```
+#### Do this:
+```java
+List<Dish> slicedMenu
+ 	= specialMenu.stream()
+ 	.dropWhile(dish -> dish.getCalories() < 320)
+ 	.collect(toList());
+```
