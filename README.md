@@ -132,3 +132,49 @@ List<Dish> slicedMenu
  	.dropWhile(dish -> dish.getCalories() < 320)
  	.collect(toList());
 ```
+---
+### Get a list of the first 3 dishes having calories greater than 300
+#### Don't do this:
+```java
+List<Dish> dishes = new ArrayList<>();
+int count = 0;
+for(Dish dish : menu) {
+   if (dish.getCalories() > 300) {
+      dishes.add(dish);
+   }
+   if (count == 3) {
+      break;
+   }
+}
+```
+#### Do this:
+```java
+List<Dish> dishes = specialMenu
+  .stream()
+  .filter(dish -> dish.getCalories() > 300)
+  .limit(3)
+  .collect(toList()); 
+```
+---
+### Filter dishes have calories greater than 300, skip 3 first ones and return the rest
+#### Don't do this:
+```java
+List<Dish> dishes = new ArrayList<>();
+int skipCount = 0;
+for(Dish dish : menu) {
+  if (dish.getCalories() > 300 && skipCount == 3) {
+     dishes.add(dish);
+  }
+  if (skipCount < 3) {
+    skipCount++; 
+  }
+}
+```
+#### Do this:
+```java
+List<Dish> dishes = menu.stream()
+                        .filter(dish -> dish.getCalories() > 300)
+                        .skip(3)
+                        .collect(Collectors.toList());
+```
+---
