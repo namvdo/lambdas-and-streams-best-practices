@@ -20,8 +20,8 @@ Lambda and Stream best practices extracted from the Modern Java in Action - Lamb
 | `count`      | Terminal | `long` | Returns the number of elements in a stream.|
 | `collect`      | Terminal | `Stream<T>` | Returns a collection from a stream (such as `Map`, `List` or event `Integer`). |
 
-### DON'T DO THIS:
-
+### Get the name of all dishes with calories greater than 300
+#### Don't do this:
 ```java
 List<String> highCaloricDishes = new ArrayList<>();
 Iterator<String> iterator = menu.iterator();
@@ -33,7 +33,7 @@ while(iterator.hasNext()) {
 }
 ```
 
-### DO THIS:
+#### Do this:
 
 ```java
 List<String> highCaloricDish =
@@ -42,7 +42,8 @@ List<String> highCaloricDish =
   .collect(toList());
 ```
 ---
-### DON'T DO THIS:
+### Print all the dishes in the collection
+#### Don't do this:
 ```java
 Iterator<String> iterator = menu.iterator();
 while (iterator.hasNext()) {
@@ -51,13 +52,13 @@ while (iterator.hasNext()) {
 }
 ```
 
-### DO THIS:
+#### Do this:
 ```java
 menu.forEach(System.out::println);
 ```
 ---
-### DON'T DO THIS:
-
+### Count the number of distinct dishes (at most 3)
+#### Don't do this:
 ```java
 Set<Dish> dishes = new HashSet<>();
 int count = 0;
@@ -70,7 +71,7 @@ for(Dish dish : menu) {
 }
 
 ```
-### DO THIS:
+#### Do this:
 ```java
 long count = menu.stream()
   .filter(dish -> dish.getCalories() > 300)
@@ -79,8 +80,8 @@ long count = menu.stream()
   .count();
 ```
 ---
-### DON'T DO THIS:
-
+### Get vegetarian dishes from all available dishes
+#### Don't do this:
 ```java
 List<Dish> vegetarianDishes = new ArrayList<>();
 for(Dish d: menu) {
@@ -90,10 +91,28 @@ for(Dish d: menu) {
 }
 ```
 
-### DO THIS:
+#### Do this:
 ```java
 List<Dish> vegetarianDishes =
   menu.stream()
   .filter(Dish::isVegetarian)
   .collect(toList());
+```
+---
+### Get all the dishes with the calories lower than 320
+#### Don't do this:
+```java
+List<Dish> dishesWithLowerThan320Calories = new ArrayList<>();
+for(Dish dish : menu) {
+   if (dish.getCalories() < 320) {
+       dishesWithLowerThan320Calories.add(dish);
+   }	
+}
+```
+#### Do this:
+```java
+List<Dish> slicedMenu
+ 	= specialMenu.stream()
+ 	.takeWhile(dish -> dish.getCalories() < 320)
+ 	.collect(toList());
 ```
