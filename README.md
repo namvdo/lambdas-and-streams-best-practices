@@ -99,7 +99,7 @@ List<Dish> vegetarianDishes =
   .collect(toList());
 ```
 ---
-### Get all the dishes with the calories lower than 320
+### Get all the dishes with the calories lower than 320 (presume the collection is already sorted)
 #### Don't do this:
 ```java
 List<Dish> dishesWithLowerThan320Calories = new ArrayList<>();
