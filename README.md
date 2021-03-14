@@ -178,7 +178,7 @@ List<Dish> dishes = menu.stream()
                         .collect(Collectors.toList());
 ```
 ---
-### Get the first 2 meal dishes
+### Get the first 2 meat dishes
 #### Stop doing this:
 ```java
 List<Dish> dishes = new ArrayList<>();
