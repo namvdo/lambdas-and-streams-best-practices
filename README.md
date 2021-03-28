@@ -28,7 +28,7 @@ Iterator<String> iterator = menu.iterator();
 while(iterator.hasNext()) {
   Dish dish = iterator.next();
   if(dish.getCalories() > 300) {
-  highCaloricDishes.add(d.getName());
+    highCaloricDishes.add(d.getName());
   }
 }
 ```
