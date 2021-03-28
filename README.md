@@ -117,6 +117,7 @@ List<Dish> slicedMenu
  	.collect(toList());
 ```
 ### Get all the dishes with the calories greater than or equal to 320 (presume the collection is already sorted)
+#### Stop doing this:
 ```java
 List<Dish> dishesWithLowerThan320Calories = new ArrayList<>();
 for(Dish dish : menu) {
