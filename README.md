@@ -200,3 +200,21 @@ List<Dish> dishes = menu.stream()
                         .limit(2)
                         .collect(Collectors.toList());
 ```                        
+---
+### Group all dishes by its type
+#### Stop doing this:
+```java
+Map<Dish.Type, List<Dish>> typeToDish = new HashMap<>();
+for(Dish dish : menu) {
+   List<Dish> dishes = typeToDish.get(dish.getType());
+   if (dishes == null) {
+      dishes = new ArrayList<>();
+   }
+   dishes.add(dish);
+   typeToDish.put(dish.getType(), dishes);
+}
+```
+#### Do this:
+```java
+ Map<Dish.Type, List<Dish>> typeToDish = menu.stream().collect(groupingBy(Dish::getType));
+```
